@@ -1,3 +1,4 @@
+import ChatBot from "@/components/chatbot/Chatbot";
 import KanbanBoard from "@/components/kanban/KanbanBoard";
 
 const Page = () => {
@@ -5,6 +6,7 @@ const Page = () => {
     <div>
       <h1>Home Page</h1>
       <KanbanBoard />
+      <ChatBot />
     </div>
   );
 };
