@@ -1,8 +1,8 @@
 export enum KanbanColumnEnum {
-  BACKLOG,
-  TODO,
-  IN_PROGRESS,
-  DONE,
+  BACKLOG = "BACKLOG",
+  TODO = "TODO",
+  IN_PROGRESS = "IN_PROGRESS",
+  DONE = "DONE",
 }
 
 export type Task = {

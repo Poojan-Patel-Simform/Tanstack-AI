@@ -45,10 +45,12 @@ export const useKanbanDrag = () => {
     const overTask = tasks.find((task) => task.id === overId);
 
     if (!over.data.current || !overTask) {
-      const targetColumn: KanbanColumnEnum = Number(overId);
+      const targetColumn = overId;
 
       const updatedTaskList = tasks.map((task) =>
-        task.id === activeId ? { ...task, column: targetColumn } : task,
+        task.id === activeId
+          ? { ...task, column: targetColumn as KanbanColumnEnum }
+          : task,
       );
 
       reorderTasks(updatedTaskList);

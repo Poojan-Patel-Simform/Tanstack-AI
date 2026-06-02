@@ -13,7 +13,7 @@ import { SubmitEvent, useEffect, useMemo, useRef, useState } from "react";
 import TypingDots from "./TypingDots";
 import { Textarea } from "../ui/textarea";
 
-export default function ChatBot() {
+const ChatBot = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
 
@@ -217,4 +217,6 @@ export default function ChatBot() {
       </SheetContent>
     </Sheet>
   );
-}
+};
+
+export default ChatBot;
