@@ -1,3 +1,5 @@
+"use client";
+
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TaskCard from "./TaskCard";
@@ -15,9 +17,7 @@ const SortableTask = ({ task }: PropsType) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({
-    id: task.id,
-  });
+  } = useSortable({ id: task.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),

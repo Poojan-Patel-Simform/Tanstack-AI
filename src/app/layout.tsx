@@ -3,9 +3,12 @@ import { Geist, Geist_Mono, Nunito_Sans, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const notoSansHeading = Noto_Sans({subsets:['latin'],variable:'--font-heading'});
+const notoSansHeading = Noto_Sans({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
 
-const nunitoSans = Nunito_Sans({subsets:['latin'],variable:'--font-sans'});
+const nunitoSans = Nunito_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +33,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", nunitoSans.variable, notoSansHeading.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        geistSans.variable,
+        geistMono.variable,
+        "font-sans",
+        nunitoSans.variable,
+        notoSansHeading.variable,
+      )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+        {children}
+      </body>
     </html>
   );
 }

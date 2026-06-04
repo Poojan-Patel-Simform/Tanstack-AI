@@ -16,3 +16,5 @@ export const generateTaskId = async () => {
 
   return `TASK-${nextNumber}`;
 };
+
+export const getTasks = async () => {};

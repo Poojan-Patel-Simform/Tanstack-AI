@@ -14,6 +14,7 @@ export enum PriorityEum {
 
 export type Task = {
   id: string;
+  taskId: string;
   title: string;
   description?: string;
   status: TaskStatusEnum;
