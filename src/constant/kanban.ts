@@ -1,23 +1,23 @@
-import { KanbanColumnEnum } from "@/types/kanban";
+import { TaskStatusEnum } from "@/types/kanban";
 
 export const KanbanBoardColumns: {
-  id: KanbanColumnEnum;
+  id: TaskStatusEnum;
   title: string;
 }[] = [
   {
-    id: KanbanColumnEnum.BACKLOG,
+    id: TaskStatusEnum.BACKLOG,
     title: "Backlog",
   },
   {
-    id: KanbanColumnEnum.TODO,
+    id: TaskStatusEnum.TODO,
     title: "To Do",
   },
   {
-    id: KanbanColumnEnum.IN_PROGRESS,
+    id: TaskStatusEnum.IN_PROGRESS,
     title: "In Progress",
   },
   {
-    id: KanbanColumnEnum.DONE,
+    id: TaskStatusEnum.DONE,
     title: "Done",
   },
 ];

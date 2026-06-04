@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { KanbanColumnEnum, Task } from "@/types/kanban";
+import { TaskStatusEnum, Task } from "@/types/kanban";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import SortableTask from "./SortableTask";
 
 type PropsType = {
-  id: KanbanColumnEnum;
+  id: TaskStatusEnum;
   title: string;
   tasks: Task[];
 };

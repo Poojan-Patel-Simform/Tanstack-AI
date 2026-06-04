@@ -9,11 +9,21 @@
 * 🟢 You can import this file directly.
 */
 
-export const KanbanColumnEnum = {
+export const TaskStatus = {
   BACKLOG: 'BACKLOG',
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE'
 } as const
 
-export type KanbanColumnEnum = (typeof KanbanColumnEnum)[keyof typeof KanbanColumnEnum]
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
+
+
+export const Priority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type Priority = (typeof Priority)[keyof typeof Priority]

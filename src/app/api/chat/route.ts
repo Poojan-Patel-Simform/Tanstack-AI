@@ -1,7 +1,11 @@
+import { createTask } from "@/tools/server/createTaskTool";
+import { deleteTask } from "@/tools/server/deleteTaskTool";
+import { moveTask } from "@/tools/server/moveTaskTool";
+import { updateTask } from "@/tools/server/updateTaskTool";
 import { chat, toServerSentEventsResponse } from "@tanstack/ai";
-import { groqText } from "@tanstack/ai-groq";
+import { geminiText } from "@tanstack/ai-gemini";
 
-export async function POST(request: Request) {
+export const POST = async (request: Request) => {
   // Check for API key
   if (!process.env.GROQ_API_KEY) {
     return new Response(
@@ -19,8 +23,9 @@ export async function POST(request: Request) {
 
   try {
     const stream = chat({
-      adapter: groqText("llama-3.1-8b-instant"),
+      adapter: geminiText("gemini-2.5-flash"),
       messages: body.messages,
+      tools: [createTask, moveTask, updateTask, deleteTask],
     });
 
     // Convert stream to HTTP response
@@ -36,4 +41,4 @@ export async function POST(request: Request) {
       },
     );
   }
-}
+};

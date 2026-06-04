@@ -1,5 +1,5 @@
 import { KanbanBoardColumns } from "@/constant/kanban";
-import { KanbanColumnEnum, Task } from "@/types/kanban";
+import { TaskStatusEnum, Task } from "@/types/kanban";
 import { useState } from "react";
 import { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
@@ -13,11 +13,11 @@ export const useKanbanDrag = () => {
 
   const tasksByColumn = KanbanBoardColumns.reduce(
     (acc, column) => {
-      acc[column.id] = tasks.filter((task) => task.column === column.id);
+      acc[column.id] = tasks.filter((task) => task.status === column.id);
 
       return acc;
     },
-    {} as Record<KanbanColumnEnum, Task[]>,
+    {} as Record<TaskStatusEnum, Task[]>,
   );
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -47,9 +47,9 @@ export const useKanbanDrag = () => {
     if (!over.data.current || !overTask) {
       const targetColumn = overId;
 
-      const updatedTaskList = tasks.map((task) =>
+      const updatedTaskList: Task[] = tasks.map((task: Task) =>
         task.id === activeId
-          ? { ...task, column: targetColumn as KanbanColumnEnum }
+          ? { ...task, status: targetColumn as TaskStatusEnum }
           : task,
       );
 
@@ -59,8 +59,8 @@ export const useKanbanDrag = () => {
     }
 
     // Same column sorting
-    if (activeTask.column === overTask.column) {
-      const columnTasks = tasksByColumn[activeTask.column];
+    if (activeTask.status === overTask.status) {
+      const columnTasks = tasksByColumn[activeTask.status];
 
       const oldIndex = columnTasks.findIndex((task) => task.id === activeId);
 
@@ -69,7 +69,7 @@ export const useKanbanDrag = () => {
       const reorderedColumn = arrayMove(columnTasks, oldIndex, newIndex);
 
       const otherTasks = tasks.filter(
-        (task) => task.column !== activeTask.column,
+        (task) => task.status !== activeTask.status,
       );
 
       const updatedTaskList = [...otherTasks, ...reorderedColumn];
@@ -80,9 +80,9 @@ export const useKanbanDrag = () => {
     }
 
     // Move between columns
-    const sourceColumnTasks = tasksByColumn[activeTask.column];
+    const sourceColumnTasks = tasksByColumn[activeTask.status];
 
-    const destinationColumnTasks = tasksByColumn[overTask.column];
+    const destinationColumnTasks = tasksByColumn[overTask.status];
 
     const destinationIndex = destinationColumnTasks.findIndex(
       (task) => task.id === overId,
@@ -90,7 +90,7 @@ export const useKanbanDrag = () => {
 
     const movingTask = {
       ...activeTask,
-      column: overTask.column,
+      status: overTask.status,
     };
 
     const newSourceTasks = sourceColumnTasks.filter(
@@ -103,7 +103,7 @@ export const useKanbanDrag = () => {
 
     const remainingTasks = tasks.filter(
       (task) =>
-        task.column !== activeTask.column && task.column !== overTask.column,
+        task.status !== activeTask.status && task.status !== overTask.status,
     );
 
     const updatedTaskList = [
