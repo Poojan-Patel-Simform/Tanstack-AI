@@ -1,4 +1,5 @@
 import { generateTaskId } from "@/app/actions/task";
+import { CACHE_KEYS } from "@/constant/cache";
 import { CREATE_TOOL_DESCRIPTION } from "@/constant/tool";
 import prisma from "@/lib/prisma";
 import {
@@ -9,6 +10,7 @@ import {
 import { PriorityEum, TaskStatusEnum } from "@/types/kanban";
 import { ToolNameEnum } from "@/types/tool";
 import { toolDefinition } from "@tanstack/ai";
+import { revalidateTag } from "next/cache";
 
 const createTaskDef = toolDefinition({
   name: ToolNameEnum.CREATE_TASK,
@@ -17,7 +19,7 @@ const createTaskDef = toolDefinition({
   outputSchema: createTaskOutputSchema,
 });
 
-export const createTask = createTaskDef.server(
+export const createTaskTool = createTaskDef.server(
   async (task: CreateTaskInput) => {
     try {
       const taskId = await generateTaskId();
@@ -32,6 +34,8 @@ export const createTask = createTaskDef.server(
           storyPoints: task.storyPoints ?? 5,
         },
       });
+
+      revalidateTag(CACHE_KEYS.GET_TASKS, "max");
 
       return {
         ...newTask,

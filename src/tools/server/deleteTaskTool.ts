@@ -15,7 +15,7 @@ const deleteTaskDef = toolDefinition({
   outputSchema: deleteTaskOutputSchema,
 });
 
-export const deleteTask = deleteTaskDef.server(
+export const deleteTaskTool = deleteTaskDef.server(
   async ({ taskId }: DeleteTaskInput) => {
     try {
       const deletedTask = await prisma.task.delete({

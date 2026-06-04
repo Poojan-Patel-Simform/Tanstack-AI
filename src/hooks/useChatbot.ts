@@ -1,9 +1,13 @@
+"use client";
+
 import { fetchServerSentEvents, useChat } from "@tanstack/ai-react";
-import { SubmitEvent, useEffect, useMemo, useRef, useState } from "react";
+import { SubmitEvent, useMemo, useState } from "react";
+import { useClientTools } from "./useClientTools";
 
 const useChatbot = () => {
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const tools = useClientTools();
 
   const {
     messages,
@@ -11,6 +15,7 @@ const useChatbot = () => {
     isLoading: isMessagesLoading,
   } = useChat({
     connection: fetchServerSentEvents("/api/chat"),
+    tools,
   });
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {

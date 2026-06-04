@@ -23,7 +23,6 @@ export const generateTaskId = async () => {
 export const getTasks = async () => {
   "use cache";
   cacheTag(CACHE_KEYS.GET_TASKS);
-  cacheLife("days");
 
   try {
     const tasks = await prisma.task.findMany({});

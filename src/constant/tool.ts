@@ -53,3 +53,6 @@ Optional fields (only provided fields will be updated):
 
 Do not include fields the user did not explicitly ask to change.
 `;
+
+export const TOGGLE_THEME_DESCRIPTION =
+  "Toggle the app UI theme. Call this when the user asks to switch to dark mode, light mode, or system preference.";

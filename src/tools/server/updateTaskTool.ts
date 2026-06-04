@@ -16,7 +16,7 @@ const updateTaskDef = toolDefinition({
   outputSchema: updateTaskOutputSchema,
 });
 
-export const updateTask = updateTaskDef.server(
+export const updateTaskTool = updateTaskDef.server(
   async ({ taskId, ...fields }: UpdateTaskInput) => {
     try {
       // Strip undefined values so Prisma only updates provided fields

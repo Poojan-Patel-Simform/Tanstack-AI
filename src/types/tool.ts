@@ -3,4 +3,5 @@ export enum ToolNameEnum {
   MOVE_TASK = "move_task",
   DELETE_TASK = "delete_task",
   UPDATE_TASK = "update_task",
+  TOGGLE_THEME = "toggle_theme",
 }

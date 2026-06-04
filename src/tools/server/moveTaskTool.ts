@@ -16,7 +16,7 @@ const moveTaskDef = toolDefinition({
   outputSchema: moveTaskOutputSchema,
 });
 
-export const moveTask = moveTaskDef.server(
+export const moveTaskTool = moveTaskDef.server(
   async ({ taskId, status }: MoveTaskInput) => {
     try {
       const updatedTask = await prisma.task.update({
