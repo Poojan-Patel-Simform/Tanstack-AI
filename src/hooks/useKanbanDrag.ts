@@ -1,19 +1,23 @@
 import { KanbanBoardColumns } from "@/constant/kanban";
 import { TaskStatusEnum, Task } from "@/types/kanban";
-import { useState } from "react";
+import { startTransition, useEffect, useOptimistic, useState } from "react";
 import { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
-import { useKanbanStore } from "@/store/kanban-store";
+import { syncStatus, updateStatus } from "@/app/actions/task";
 
-export const useKanbanDrag = () => {
-  const tasks = useKanbanStore((store) => store.tasks);
-  const reorderTasks = useKanbanStore((store) => store.reorderTasks);
+type PropsType = {
+  data: Task[];
+};
 
+export const useKanbanDrag = ({ data }: PropsType) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [optimisticTasks, setOptimisticTasks] = useOptimistic(tasks);
 
   const tasksByColumn = KanbanBoardColumns.reduce(
     (acc, column) => {
-      acc[column.id] = tasks.filter((task) => task.status === column.id);
+      acc[column.id] = optimisticTasks.filter(
+        (task) => task.status === column.id,
+      );
 
       return acc;
     },
@@ -28,92 +32,61 @@ export const useKanbanDrag = () => {
     }
   };
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     setActiveTask(null);
 
-    if (!over) return;
+    const taskStatusEnumValues: string[] = Object.values(TaskStatusEnum);
 
-    const activeId = String(active.id);
-    const overId = String(over.id);
-
-    const activeTask = tasks.find((task) => task.id === activeId);
-
-    if (!activeTask) return;
-
-    const overTask = tasks.find((task) => task.id === overId);
-
-    if (!over.data.current || !overTask) {
-      const targetColumn = overId;
-
-      const updatedTaskList: Task[] = tasks.map((task: Task) =>
-        task.id === activeId
-          ? { ...task, status: targetColumn as TaskStatusEnum }
-          : task,
-      );
-
-      reorderTasks(updatedTaskList);
-
-      return;
+    if (
+      over?.id &&
+      taskStatusEnumValues.includes(String(over.id)) &&
+      !over?.data?.current
+    ) {
+      startTransition(async () => {
+        const updatedList = tasks.map((task) => {
+          if (task.id === active.id) {
+            return {
+              ...task,
+              status: over.id as TaskStatusEnum,
+            };
+          } else {
+            return task;
+          }
+        });
+        setOptimisticTasks(updatedList);
+        await updateStatus(String(active.id), over.id as TaskStatusEnum);
+      });
     }
 
-    // Same column sorting
-    if (activeTask.status === overTask.status) {
-      const columnTasks = tasksByColumn[activeTask.status];
+    if (active.id && over?.id) {
+      startTransition(async () => {
+        const targetTask = tasks.find((task) => task.id === over.id);
+        if (targetTask) {
+          const updatedList = tasks.map((task) => {
+            if (task.id === active.id) {
+              return {
+                ...task,
+                status: targetTask.status,
+              };
+            } else {
+              return task;
+            }
+          });
 
-      const oldIndex = columnTasks.findIndex((task) => task.id === activeId);
-
-      const newIndex = columnTasks.findIndex((task) => task.id === overId);
-
-      const reorderedColumn = arrayMove(columnTasks, oldIndex, newIndex);
-
-      const otherTasks = tasks.filter(
-        (task) => task.status !== activeTask.status,
-      );
-
-      const updatedTaskList = [...otherTasks, ...reorderedColumn];
-
-      reorderTasks(updatedTaskList);
-
-      return;
+          setOptimisticTasks(updatedList);
+        }
+        await syncStatus(String(active.id), String(over.id));
+      });
     }
 
-    // Move between columns
-    const sourceColumnTasks = tasksByColumn[activeTask.status];
-
-    const destinationColumnTasks = tasksByColumn[overTask.status];
-
-    const destinationIndex = destinationColumnTasks.findIndex(
-      (task) => task.id === overId,
-    );
-
-    const movingTask = {
-      ...activeTask,
-      status: overTask.status,
-    };
-
-    const newSourceTasks = sourceColumnTasks.filter(
-      (task) => task.id !== activeId,
-    );
-
-    const newDestinationTasks = [...destinationColumnTasks];
-
-    newDestinationTasks.splice(destinationIndex, 0, movingTask);
-
-    const remainingTasks = tasks.filter(
-      (task) =>
-        task.status !== activeTask.status && task.status !== overTask.status,
-    );
-
-    const updatedTaskList = [
-      ...remainingTasks,
-      ...newSourceTasks,
-      ...newDestinationTasks,
-    ];
-
-    reorderTasks(updatedTaskList);
+    console.log(active, over);
   };
+
+  useEffect(() => {
+    setTasks(data);
+  }, [data]);
 
   return { activeTask, handleDragStart, handleDragEnd, tasksByColumn };
 };

@@ -12,15 +12,20 @@ import KanbanColumn from "./KanbanColumn";
 import TaskCard from "./TaskCard";
 import { KanbanBoardColumns } from "@/constant/kanban";
 import { useKanbanDrag } from "@/hooks/useKanbanDrag";
+import { Task } from "@/types/kanban";
 
-const KanbanBoard = () => {
+type PropsType = {
+  data: Task[];
+};
+
+const KanbanBoard = ({ data }: PropsType) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 5 },
     }),
   );
   const { activeTask, handleDragStart, handleDragEnd, tasksByColumn } =
-    useKanbanDrag();
+    useKanbanDrag({ data });
 
   return (
     <div className="flex flex-col gap-6 p-12">
