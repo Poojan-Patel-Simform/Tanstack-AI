@@ -1,5 +1,5 @@
-import { generateTaskId } from "@/app/actions/task";
-import { CACHE_KEYS } from "@/constant/cache";
+import { generateTaskId } from "@/actions/task";
+import { ORDER_GAP } from "@/constant/common";
 import { CREATE_TOOL_DESCRIPTION } from "@/constant/tool";
 import prisma from "@/lib/prisma";
 import {
@@ -10,7 +10,6 @@ import {
 import { PriorityEum, TaskStatusEnum } from "@/types/kanban";
 import { ToolNameEnum } from "@/types/tool";
 import { toolDefinition } from "@tanstack/ai";
-import { revalidateTag } from "next/cache";
 
 const createTaskDef = toolDefinition({
   name: ToolNameEnum.CREATE_TASK,
@@ -24,6 +23,14 @@ export const createTaskTool = createTaskDef.server(
     try {
       const taskId = await generateTaskId();
 
+      const lastTask = await prisma.task.findFirst({
+        where: { status: task.status },
+        orderBy: { order: "desc" },
+        select: { order: true },
+      });
+
+      const newOrder = lastTask ? lastTask.order + ORDER_GAP : ORDER_GAP;
+
       const newTask = await prisma.task.create({
         data: {
           taskId,
@@ -32,10 +39,9 @@ export const createTaskTool = createTaskDef.server(
           status: task.status ?? TaskStatusEnum.BACKLOG,
           priority: task.priority ?? PriorityEum.MEDIUM,
           storyPoints: task.storyPoints ?? 5,
+          order: newOrder,
         },
       });
-
-      revalidateTag(CACHE_KEYS.GET_TASKS, "max");
 
       return {
         ...newTask,

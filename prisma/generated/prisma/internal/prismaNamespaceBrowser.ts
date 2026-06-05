@@ -78,6 +78,7 @@ export const TaskScalarFieldEnum = {
   status: 'status',
   priority: 'priority',
   storyPoints: 'storyPoints',
+  order: 'order',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

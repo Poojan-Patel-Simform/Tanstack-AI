@@ -20,9 +20,17 @@ export type Task = {
   status: TaskStatusEnum;
   priority: PriorityEum;
   storyPoints: number;
+  order: number;
   createdAt: string;
   updatedAt: string;
 };
 
 export type CreateTaskType = Pick<Task, "title"> &
   Partial<Pick<Task, "description" | "status" | "priority" | "storyPoints">>;
+
+export type UpdateTaskStatusInput = {
+  sourceTask: Task;
+  newStatus: TaskStatusEnum;
+  prevOrder: number | null;
+  nextOrder: number | null; // order of the task below, null if bottom
+};

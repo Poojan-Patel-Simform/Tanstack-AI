@@ -28,10 +28,12 @@ export type AggregateTask = {
 
 export type TaskAvgAggregateOutputType = {
   storyPoints: number | null
+  order: number | null
 }
 
 export type TaskSumAggregateOutputType = {
   storyPoints: number | null
+  order: number | null
 }
 
 export type TaskMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type TaskMinAggregateOutputType = {
   status: $Enums.TaskStatus | null
   priority: $Enums.Priority | null
   storyPoints: number | null
+  order: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +57,7 @@ export type TaskMaxAggregateOutputType = {
   status: $Enums.TaskStatus | null
   priority: $Enums.Priority | null
   storyPoints: number | null
+  order: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +70,7 @@ export type TaskCountAggregateOutputType = {
   status: number
   priority: number
   storyPoints: number
+  order: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,10 +79,12 @@ export type TaskCountAggregateOutputType = {
 
 export type TaskAvgAggregateInputType = {
   storyPoints?: true
+  order?: true
 }
 
 export type TaskSumAggregateInputType = {
   storyPoints?: true
+  order?: true
 }
 
 export type TaskMinAggregateInputType = {
@@ -88,6 +95,7 @@ export type TaskMinAggregateInputType = {
   status?: true
   priority?: true
   storyPoints?: true
+  order?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +108,7 @@ export type TaskMaxAggregateInputType = {
   status?: true
   priority?: true
   storyPoints?: true
+  order?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +121,7 @@ export type TaskCountAggregateInputType = {
   status?: true
   priority?: true
   storyPoints?: true
+  order?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -211,6 +221,7 @@ export type TaskGroupByOutputType = {
   status: $Enums.TaskStatus
   priority: $Enums.Priority
   storyPoints: number
+  order: number
   createdAt: Date
   updatedAt: Date
   _count: TaskCountAggregateOutputType | null
@@ -246,6 +257,7 @@ export type TaskWhereInput = {
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFilter<"Task"> | $Enums.Priority
   storyPoints?: Prisma.IntFilter<"Task"> | number
+  order?: Prisma.FloatFilter<"Task"> | number
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Task"> | Date | string
 }
@@ -258,6 +270,7 @@ export type TaskOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -273,6 +286,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFilter<"Task"> | $Enums.Priority
   storyPoints?: Prisma.IntFilter<"Task"> | number
+  order?: Prisma.FloatFilter<"Task"> | number
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Task"> | Date | string
 }, "id" | "taskId">
@@ -285,6 +299,7 @@ export type TaskOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TaskCountOrderByAggregateInput
@@ -305,6 +320,7 @@ export type TaskScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumTaskStatusWithAggregatesFilter<"Task"> | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityWithAggregatesFilter<"Task"> | $Enums.Priority
   storyPoints?: Prisma.IntWithAggregatesFilter<"Task"> | number
+  order?: Prisma.FloatWithAggregatesFilter<"Task"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
 }
@@ -317,6 +333,7 @@ export type TaskCreateInput = {
   status?: $Enums.TaskStatus
   priority?: $Enums.Priority
   storyPoints?: number
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -329,6 +346,7 @@ export type TaskUncheckedCreateInput = {
   status?: $Enums.TaskStatus
   priority?: $Enums.Priority
   storyPoints?: number
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -341,6 +359,7 @@ export type TaskUpdateInput = {
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
   storyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  order?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -353,6 +372,7 @@ export type TaskUncheckedUpdateInput = {
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
   storyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  order?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -365,6 +385,7 @@ export type TaskCreateManyInput = {
   status?: $Enums.TaskStatus
   priority?: $Enums.Priority
   storyPoints?: number
+  order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -377,6 +398,7 @@ export type TaskUpdateManyMutationInput = {
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
   storyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  order?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -389,6 +411,7 @@ export type TaskUncheckedUpdateManyInput = {
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   priority?: Prisma.EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
   storyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  order?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -401,12 +424,14 @@ export type TaskCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TaskAvgOrderByAggregateInput = {
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
 }
 
 export type TaskMaxOrderByAggregateInput = {
@@ -417,6 +442,7 @@ export type TaskMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -429,12 +455,14 @@ export type TaskMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type TaskSumOrderByAggregateInput = {
   storyPoints?: Prisma.SortOrder
+  order?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -461,6 +489,14 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -475,6 +511,7 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   priority?: boolean
   storyPoints?: boolean
+  order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["task"]>
@@ -487,6 +524,7 @@ export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   priority?: boolean
   storyPoints?: boolean
+  order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["task"]>
@@ -499,6 +537,7 @@ export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   priority?: boolean
   storyPoints?: boolean
+  order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["task"]>
@@ -511,11 +550,12 @@ export type TaskSelectScalar = {
   status?: boolean
   priority?: boolean
   storyPoints?: boolean
+  order?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "taskId" | "title" | "description" | "status" | "priority" | "storyPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["task"]>
+export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "taskId" | "title" | "description" | "status" | "priority" | "storyPoints" | "order" | "createdAt" | "updatedAt", ExtArgs["result"]["task"]>
 
 export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Task"
@@ -528,6 +568,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     status: $Enums.TaskStatus
     priority: $Enums.Priority
     storyPoints: number
+    order: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["task"]>
@@ -960,6 +1001,7 @@ export interface TaskFieldRefs {
   readonly status: Prisma.FieldRef<"Task", 'TaskStatus'>
   readonly priority: Prisma.FieldRef<"Task", 'Priority'>
   readonly storyPoints: Prisma.FieldRef<"Task", 'Int'>
+  readonly order: Prisma.FieldRef<"Task", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Task", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Task", 'DateTime'>
 }

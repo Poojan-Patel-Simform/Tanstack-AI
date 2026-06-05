@@ -6,9 +6,7 @@ import ChatMessage from "./ChatMessage";
 
 type PropsType = {
   messages: UIMessage<any, unknown>[];
-  isLoading: boolean;
   isMessagesLoading: boolean;
-  isToolRunning: boolean;
   isError: boolean;
   errorMessage: string | null;
 };
@@ -61,9 +59,15 @@ const ChatMessageList = ({
         )}
 
         {isError && (
-          <p className="px-6 pb-2 text-center text-xs text-destructive">
-            {errorMessage}
-          </p>
+          <div className="flex gap-3">
+            <div className="mt-1 flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive text-destructive-foreground">
+              <Bot className="size-4" />
+            </div>
+
+            <div className="max-w-[80%] rounded-3xl border border-destructive/30 bg-destructive/10 px-5 py-4 text-destructive">
+              {errorMessage || "Something went wrong."}
+            </div>
+          </div>
         )}
 
         <div ref={endRef} />

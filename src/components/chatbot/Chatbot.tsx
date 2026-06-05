@@ -19,7 +19,6 @@ const ChatBot = () => {
     messages,
     isLoading,
     isMessagesLoading,
-    isToolRunning,
     isError,
     errorMessage,
     handleSubmit,
@@ -75,9 +74,7 @@ const ChatBot = () => {
 
           <ChatMessageList
             messages={messages}
-            isLoading={isLoading}
             isMessagesLoading={isMessagesLoading}
-            isToolRunning={isToolRunning}
             isError={isError}
             errorMessage={errorMessage}
           />
