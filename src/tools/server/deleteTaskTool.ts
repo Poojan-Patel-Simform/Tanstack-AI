@@ -13,6 +13,7 @@ const deleteTaskDef = toolDefinition({
   description: DELETE_TOOL_DESCRIPTION,
   inputSchema: deleteTaskInputSchema,
   outputSchema: deleteTaskOutputSchema,
+  needsApproval: true,
 });
 
 export const deleteTaskTool = deleteTaskDef.server(

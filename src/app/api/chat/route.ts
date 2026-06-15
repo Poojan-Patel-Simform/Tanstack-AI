@@ -7,19 +7,6 @@ import { chat, toServerSentEventsResponse } from "@tanstack/ai";
 import { groqText } from "@tanstack/ai-groq";
 
 export const POST = async (request: Request) => {
-  // Check for API key
-  if (!process.env.GROQ_API_KEY) {
-    return new Response(
-      JSON.stringify({
-        error: "GROQ_API_KEY not configured",
-      }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
-  }
-
   const body = await request.json();
 
   try {

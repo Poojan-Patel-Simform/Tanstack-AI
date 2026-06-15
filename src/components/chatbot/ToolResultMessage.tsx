@@ -14,7 +14,7 @@ const ToolResultMessage = ({ part }: PropsType) => {
   } catch {}
 
   return (
-    <div className="rounded-xl border border-green-200 bg-green-50 p-3 text-sm">
+    <div className="rounded-xl border border-accent/20 bg-accent/10 p-3 text-sm dark:border-accent/30 dark:bg-accent/20">
       <div className="font-medium">✅ Tool Result</div>
 
       <pre className="mt-2 overflow-x-auto whitespace-pre-wrap text-xs">

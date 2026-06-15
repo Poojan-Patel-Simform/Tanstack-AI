@@ -5,6 +5,19 @@ type PropsType = {
 };
 
 const ToolCallMessage = ({ part }: PropsType) => {
+  const getToolCallMessage = () => {
+    switch (part.state) {
+      case "approval-requested":
+        return "Awaiting approval...";
+      case "approval-responded":
+        return "Completed";
+      case "complete":
+        return "Completed";
+      default:
+        return "Running...";
+    }
+  };
+
   return (
     <div className="rounded-xl border bg-muted p-3">
       <div className="flex items-center gap-2">
@@ -13,7 +26,7 @@ const ToolCallMessage = ({ part }: PropsType) => {
       </div>
 
       <div className="mt-1 text-xs text-muted-foreground">
-        {part.state === "complete" ? "Completed" : "Running..."}
+        {getToolCallMessage()}
       </div>
     </div>
   );

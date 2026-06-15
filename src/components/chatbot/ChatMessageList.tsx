@@ -9,6 +9,10 @@ type PropsType = {
   isMessagesLoading: boolean;
   isError: boolean;
   errorMessage: string | null;
+  addToolApprovalResponse: (response: {
+    id: string;
+    approved: boolean;
+  }) => Promise<void>;
 };
 
 const ChatMessageList = ({
@@ -16,6 +20,7 @@ const ChatMessageList = ({
   isMessagesLoading,
   isError,
   errorMessage,
+  addToolApprovalResponse,
 }: PropsType) => {
   const endRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,7 +48,13 @@ const ChatMessageList = ({
         )}
 
         {messages.map((message) => {
-          return <ChatMessage key={message.id} message={message} />;
+          return (
+            <ChatMessage
+              key={message.id}
+              message={message}
+              addToolApprovalResponse={addToolApprovalResponse}
+            />
+          );
         })}
 
         {isMessagesLoading && (

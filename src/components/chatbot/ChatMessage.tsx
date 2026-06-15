@@ -3,12 +3,17 @@ import { Bot, User } from "lucide-react";
 import TextMessage from "./TextMessage";
 import ToolCallMessage from "./ToolCallMessage";
 import ToolResultMessage from "./ToolResultMessage";
+import ApprovalPrompt from "./ApprovalPrompt";
 
 type PropsType = {
   message: UIMessage<any, unknown>;
+  addToolApprovalResponse: (response: {
+    id: string;
+    approved: boolean;
+  }) => Promise<void>;
 };
 
-const ChatMessage = ({ message }: PropsType) => {
+const ChatMessage = ({ message, addToolApprovalResponse }: PropsType) => {
   const isAssistant = message.role === "assistant";
 
   const filteredMessageList = message.parts.filter(
@@ -39,21 +44,46 @@ const ChatMessage = ({ message }: PropsType) => {
       >
         <div className="space-y-3">
           {filteredMessageList.map((part, idx) => {
-            switch (part.type) {
-              case "text":
-                return <TextMessage key={part.content + idx} part={part} />;
-
-              case "tool-call":
-                return <ToolCallMessage key={part.id + idx} part={part} />;
-
-              case "tool-result":
-                return (
-                  <ToolResultMessage key={part.toolCallId + idx} part={part} />
-                );
-
-              default:
-                return null;
+            if (part.type === "text") {
+              return <TextMessage key={part.content + idx} part={part} />;
             }
+
+            if (part.type === "tool-call") {
+              const approval =
+                part.state === "approval-requested" ? part.approval : undefined;
+
+              return (
+                <div key={part.id + idx} className="space-y-2">
+                  <ToolCallMessage part={part} />
+
+                  {approval && (
+                    <ApprovalPrompt
+                      part={part}
+                      onApprove={() =>
+                        addToolApprovalResponse({
+                          id: approval.id,
+                          approved: true,
+                        })
+                      }
+                      onDeny={() =>
+                        addToolApprovalResponse({
+                          id: approval.id,
+                          approved: false,
+                        })
+                      }
+                    />
+                  )}
+                </div>
+              );
+            }
+
+            if (part.type === "tool-result") {
+              return (
+                <ToolResultMessage key={part.toolCallId + idx} part={part} />
+              );
+            }
+
+            return null;
           })}
         </div>
       </div>

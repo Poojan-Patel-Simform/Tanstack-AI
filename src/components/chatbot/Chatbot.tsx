@@ -25,6 +25,7 @@ const ChatBot = () => {
     chatInput,
     setChatInput,
     canSend,
+    addToolApprovalResponse,
   } = useChatbot();
 
   return (
@@ -77,6 +78,7 @@ const ChatBot = () => {
             isMessagesLoading={isMessagesLoading}
             isError={isError}
             errorMessage={errorMessage}
+            addToolApprovalResponse={addToolApprovalResponse}
           />
 
           {/* INPUT */}

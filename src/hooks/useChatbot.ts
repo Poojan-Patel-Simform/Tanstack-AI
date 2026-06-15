@@ -15,11 +15,11 @@ const useChatbot = () => {
     messages,
     sendMessage,
     isLoading: isMessagesLoading,
+    addToolApprovalResponse,
   } = useChat({
     connection: fetchServerSentEvents("/api/chat"),
     tools,
     onFinish: (newMessage) => {
-      console.log(newMessage);
       const mutatingTools = new Set([
         ToolNameEnum.CREATE_TASK,
         ToolNameEnum.MOVE_TASK,
@@ -80,6 +80,7 @@ const useChatbot = () => {
     chatInput: input,
     setChatInput: setInput,
     canSend,
+    addToolApprovalResponse,
   };
 };
 
