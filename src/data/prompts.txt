@@ -1,0 +1,57 @@
+=> Create Task Prompts:
+
+Create a task with:
+title - Set up CI/CD pipeline
+description - Configure GitHub Actions to run tests, build the application, and deploy automatically on merge to the main branch.
+status - BACKLOG
+priority - HIGH
+storyPoints - 8
+
+Create a task with:
+title - Add user profile page
+description - Build a profile page where users can view and update their personal information, avatar, and account settings.
+status - TODO
+priority - MEDIUM
+storyPoints - 5
+
+
+
+=> Update Task Prompts:
+
+Update task with:
+taskId - TASK-001
+title - Set up CI/CD pipeline for backend
+description - Configure GitHub Actions to run tests, build the application, deploy automatically on merge to the main branch, and send deployment notifications to Slack.
+status - BACKLOG
+priority - HIGH
+storyPoints - 8
+
+Update task with:
+taskId - TASK-002
+title - Add user profile page
+description - Build a profile page where users can only view details.
+status - TODO
+priority - HIGH
+storyPoints - 8
+
+
+
+=> Move Task Prompts:
+
+Move task TASK-001 from BACKLOG to TODO
+
+Move task TASK-002 from TODO to IN_PROGRESS
+
+
+
+=> Delete Task Prompts:
+
+Delete the task with:
+taskId - TASK-123
+
+
+
+=> Theme Switching Prompts:
+
+Switch the application theme to dark mode.
+Switch the application theme to light mode.
