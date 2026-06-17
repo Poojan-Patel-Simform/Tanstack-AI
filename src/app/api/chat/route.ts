@@ -11,7 +11,7 @@ export const POST = async (request: Request) => {
 
   try {
     const stream = chat({
-      adapter: geminiText("gemini-2.0-flash"),
+      adapter: geminiText("gemini-2.5-flash"),
       messages: body.messages,
       tools: [
         createTaskTool,
