@@ -4,14 +4,14 @@ import { deleteTaskTool } from "@/tools/server/deleteTaskTool";
 import { moveTaskTool } from "@/tools/server/moveTaskTool";
 import { updateTaskTool } from "@/tools/server/updateTaskTool";
 import { chat, toServerSentEventsResponse } from "@tanstack/ai";
-import { geminiText } from "@tanstack/ai-gemini";
+import { groqText } from "@tanstack/ai-groq";
 
 export const POST = async (request: Request) => {
   const body = await request.json();
 
   try {
     const stream = chat({
-      adapter: geminiText("gemini-2.5-flash"),
+      adapter: groqText("llama-3.3-70b-versatile"),
       messages: body.messages,
       tools: [
         createTaskTool,
